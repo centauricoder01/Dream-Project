@@ -1,4 +1,24 @@
+const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
-const expresss = require("express");
+require("dotenv").config();
 
-mongoose.connect("something");
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => res.send({ message: "Welcome Back, Sir" }));
+
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("DB Connetion Successfull");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
