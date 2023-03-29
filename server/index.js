@@ -1,1 +1,4 @@
-console.log("Hello World I am Alive");
+const mongoose = require("mongoose");
+const expresss = require("express");
+
+mongoose.connect("something");
