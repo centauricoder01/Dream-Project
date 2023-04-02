@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => res.send({ message: "Welcome Back, Sir" }));
+app.use("/auth", authRoute)
 
 mongoose
   .connect(process.env.MONGO_URL)
