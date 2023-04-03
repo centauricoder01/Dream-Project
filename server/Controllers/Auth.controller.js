@@ -1,7 +1,6 @@
 const { authModel } = require("../Models/Auth.models");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 const signupUser = async (req, res) => {
@@ -55,7 +54,6 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   let checkEmail = await authModel.findOne({ email });
-  console.log(checkEmail);
 
   try {
     if (checkEmail) {
@@ -65,6 +63,7 @@ const loginUser = async (req, res) => {
             message: "login successfull",
             name: checkEmail.userName,
             email: checkEmail.email,
+            id: checkEmail._id,
           });
         } else {
           res.send({ message: "password don't match" });
@@ -76,4 +75,25 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser };
+const passwordChange = async (req, res) => {
+  const { id, oldpassword, newpassword } = req.body;
+
+  const getById = await authModel.findById(id);
+
+  try {
+    bcrypt.compare(oldpassword, getById.Password, async function (err, result) {
+      if (result) {
+        bcrypt.hash(newpassword, 10, async function (err, hash) {
+          await authModel.findByIdAndUpdate(id, { Password: hash });
+          res.send({ message: "Password Changed" });
+        });
+      } else {
+        res.send({ message: "password don't match" });
+      }
+    });
+  } catch (error) {
+    res.send({ message: "Server error" });
+  }
+};
+
+module.exports = { signupUser, loginUser, passwordChange };
