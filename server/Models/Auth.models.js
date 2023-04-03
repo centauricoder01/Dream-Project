@@ -4,7 +4,7 @@ const authSchema = mongoose.Schema(
   {
     userName: String,
     email: String,
-    password: String,
+    Password: String,
   },
   {
     versionKey: false,

@@ -19,7 +19,7 @@ const signupUser = async (req, res) => {
     service: "gmail",
     auth: {
       user: "rajendrapatelofficial@gmail.com",
-      pass: "mbmqczvfbrcexwdh",
+      pass: process.env.APP_PASSWORD,
     },
   });
 
@@ -36,9 +36,8 @@ const signupUser = async (req, res) => {
 
   bcrypt.hash(Password, 10, async function (err, hash) {
     if (hash) {
-      const saveDetails = new authModel({ userName, email, Password });
+      const saveDetails = new authModel({ userName, email, Password: hash });
       await saveDetails.save();
-
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
@@ -52,4 +51,29 @@ const signupUser = async (req, res) => {
   });
 };
 
-module.exports = { signupUser };
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  let checkEmail = await authModel.findOne({ email });
+  console.log(checkEmail);
+
+  try {
+    if (checkEmail) {
+      bcrypt.compare(password, checkEmail.Password, function (err, result) {
+        if (result) {
+          res.send({
+            message: "login successfull",
+            name: checkEmail.userName,
+            email: checkEmail.email,
+          });
+        } else {
+          res.send({ message: "password don't match" });
+        }
+      });
+    }
+  } catch (error) {
+    res.send({ message: "Server Error", error });
+  }
+};
+
+module.exports = { signupUser, loginUser };
