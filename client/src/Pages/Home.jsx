@@ -1,4 +1,5 @@
 import TalkHub from "../Assets/homeimg.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -23,12 +24,16 @@ const Home = () => {
             opportunity to reach farther and fulfill your desires.
           </p>
           <div className="flex justify-center">
-            <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">
-              Signup
-            </button>
-            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-              Login
-            </button>
+            <Link to={"/signup"}>
+              <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">
+                Signup
+              </button>
+            </Link>
+            <Link to={"/login"}>
+              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </div>
