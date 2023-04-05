@@ -4,7 +4,7 @@ const Signup = () => {
   return (
     <div>
       <section className="text-gray-600 body-font flex justify-center items-center h-screen	">
-        <div className="container px-5 py-5 mx-auto border-2 w-1/3 rounded-md bg-gray-800">
+        <div className="container px-5 py-5 mx-auto border-2 w-1/3 rounded-md bg-indigo-900	">
           <div className="flex flex-col text-center w-full">
             <h1 className=" text-5xl title-font mb-4 text-white font-extrabold">
               Sign up
