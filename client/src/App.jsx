@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import Signup from "./Pages/Signup";
-import Login from "./Pages/Login";
-import Popup from "./Pages/Popup";
+import Signup from "./Pages/AuthFiles/Signup";
+import Login from "./Pages/AuthFiles/Login";
+import Popup from "./Pages/AuthFiles/Popup";
 
 function App() {
   return (
