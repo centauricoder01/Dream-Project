@@ -1,4 +1,4 @@
-import TalkHub from "../Assets/homeimg.png";
+import TalkHub from "../../Assets/homeimg.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
